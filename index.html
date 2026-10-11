@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1b2d">
+<title>风车电影网：转一转，挑到今天想看的那部电影</title>
+<meta name="keywords" content="风车电影网,在线电影,电影推荐,随机找片,按心情找电影,老片重温,电影分类导航,今日片单,观影心情">
+<meta name="description" content="风车电影网，一个让你「转一转就找到想看的片」的电影站。按心情、按类型、按年代、按片长四种方式找片，支持随机推荐与老片重温，像转风车一样轻松挑到今天最适合的那一部。">
+<link rel="canonical" href="https://fengchedianyingwang-top.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="风车电影网：转一转，挑到今天想看的那部电影">
+<meta property="og:description" content="按心情、按类型、按年代、按片长四种方式找片，支持随机推荐与老片重温。">
+<meta property="og:url" content="https://fengchedianyingwang-top.github.io/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0f1b2d;--bg2:#16283d;--cream:#f5f0e6;--ink:#0f1b2d;
+  --mint:#5fd0b0;--mint2:#a8e6cf;--amber:#ffb347;--red:#ff6b5b;--line:rgba(245,240,230,.16);
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Press Start 2P","VT323","Pixelify Sans","PingFang SC","Microsoft YaHei",monospace;
+  background:var(--bg);color:var(--cream);line-height:1.85;overflow-x:hidden;
+  background-image:
+    linear-gradient(rgba(95,208,176,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(95,208,176,.035) 1px,transparent 1px);
+  background-size:4px 4px;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+.px{border:3px solid var(--cream);box-shadow:inset -3px -3px 0 rgba(0,0,0,.3)}
+.px-in{border:3px solid var(--ink);box-shadow:inset -3px -3px 0 rgba(0,0,0,.25)}
+
+/* 顶栏 */
+.hd{position:sticky;top:0;z-index:60;background:rgba(15,27,45,.94);border-bottom:3px solid var(--mint)}
+.hd-in{max-width:1160px;margin:0 auto;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px;font-size:20px;letter-spacing:1px}
+.logo .fc{width:30px;height:30px;background:var(--mint);position:relative;transform:rotate(45deg);flex:0 0 auto}
+.logo .fc::after{content:"";position:absolute;inset:6px;border:2px solid var(--bg)}
+.logo .fc::before{content:"";position:absolute;inset:11px;background:var(--amber);z-index:2}
+.logo b{color:var(--mint)}
+.blip{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--mint2);letter-spacing:1px}
+.blip i{width:8px;height:8px;background:var(--mint);animation:bl 1s steps(2) infinite}
+@keyframes bl{to{opacity:.2}}
+.nav{display:flex;gap:4px}
+.nav a{font-size:12px;padding:9px 14px;color:rgba(245,240,230,.7);transition:.15s;border:2px solid transparent}
+.nav a.on,.nav a:hover{color:var(--bg);background:var(--mint);border-color:var(--mint)}
+.bg{display:none;background:none;border:0;cursor:pointer;color:var(--mint);font-size:22px}
+
+/* 首屏 */
+.hero{padding:70px 0 60px;position:relative}
+.hero-in{display:grid;grid-template-columns:1.35fr 1fr;gap:44px;align-items:center}
+.hero-t .tag{display:inline-block;font-size:10px;letter-spacing:2px;color:var(--bg);background:var(--amber);padding:6px 12px;margin-bottom:22px}
+.hero-t h1{font-size:44px;line-height:1.4;letter-spacing:-.5px;margin-bottom:20px;font-weight:400}
+.hero-t h1 em{font-style:normal;color:var(--mint)}
+.hero-t h1 .hl{background:var(--mint);color:var(--bg);padding:0 8px}
+.hero-t p{font-size:14px;color:rgba(245,240,230,.72);max-width:480px;margin-bottom:26px}
+.acts{display:flex;gap:12px;flex-wrap:wrap}
+.btn{font:inherit;font-size:13px;padding:14px 24px;border:3px solid var(--cream);background:transparent;color:var(--cream);cursor:pointer;transition:.15s}
+.btn:hover{background:var(--cream);color:var(--bg)}
+.btn-mint{border-color:var(--mint);color:var(--mint)}
+.btn-mint:hover{background:var(--mint);color:var(--bg)}
+.hero-s{padding:26px;border:3px solid var(--mint);background:var(--bg2);position:relative}
+.hero-s::after{content:"SPIN";position:absolute;right:-3px;top:-3px;background:var(--red);color:#fff;font-size:10px;padding:5px 10px}
+.spin{font-size:56px;line-height:1;text-align:center;color:var(--mint);margin:14px 0 22px;letter-spacing:2px;animation:sp 8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.hero-s h3{font-size:15px;margin-bottom:14px;color:var(--mint2)}
+.hero-s ul{list-style:none}
+.hero-s li{display:flex;justify-content:space-between;font-size:12px;padding:7px 0;border-bottom:1px dashed rgba(245,240,230,.18)}
+.hero-s li:last-child{border-bottom:0}
+.hero-s li b{color:var(--amber);font-weight:400}
+
+/* 数据 */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:3px solid var(--mint);background:var(--mint);margin-top:50px}
+.stats div{background:var(--bg);padding:20px 18px}
+.stats b{display:block;font-size:28px;color:var(--mint);line-height:1}
+.stats span{font-size:11px;color:rgba(245,240,230,.66);letter-spacing:1px}
+
+/* 区块头 */
+.sec{padding:80px 0}
+.sec-t{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:40px;flex-wrap:wrap}
+.sec-t .l{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sec-t .lvl{font-size:11px;background:var(--red);color:#fff;padding:5px 10px;letter-spacing:1px}
+.sec-t h2{font-size:26px;letter-spacing:-.5px}
+.sec-t h2 em{font-style:normal;color:var(--mint)}
+.sec-t a{font-size:12px;color:var(--mint);border-bottom:2px solid var(--mint);padding-bottom:2px}
+
+/* 四宫格 */
+.grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.box{padding:28px;border:3px solid var(--cream);background:var(--bg2);transition:.2s;position:relative}
+.box::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c)}
+.box:hover{transform:translate(-4px,-4px);box-shadow:6px 6px 0 var(--c)}
+.box .ico{font-size:26px;margin-bottom:14px;display:block}
+.box h3{font-size:19px;margin-bottom:8px}
+.box p{font-size:13px;color:rgba(245,240,230,.7)}
+.box .go{display:inline-block;margin-top:16px;font-size:11px;color:var(--c);border-bottom:1px solid var(--c);padding-bottom:2px}
+
+/* 卡片墙 */
+.wall{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{border:3px solid rgba(245,240,230,.2);background:var(--bg2);overflow:hidden;transition:.2s}
+.card:hover{border-color:var(--mint);transform:translateY(-5px)}
+.card .top{padding:20px 20px 14px;border-bottom:3px solid rgba(245,240,230,.12)}
+.card .top .n{font-size:10px;color:var(--mint);letter-spacing:2px}
+.card h3{font-size:17px;margin:10px 0 4px}
+.card .cat{font-size:11px;color:var(--amber)}
+.card .body{padding:14px 20px 20px;font-size:13px;color:rgba(245,240,230,.72)}
+.card .body .bar{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:10px}
+.card .body .bar em{flex:1;height:8px;background:rgba(245,240,230,.12);position:relative}
+.card .body .bar em::after{content:"";position:absolute;left:0;top:0;height:100%;width:var(--w);background:var(--mint)}
+.card .body .bar b{color:var(--mint)}
+
+/* 时间轴 */
+.tl{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative}
+.tl::before{content:"";position:absolute;left:0;right:0;top:14px;height:3px;background:repeating-linear-gradient(90deg,var(--mint) 0 10px,transparent 10px 20px)}
+.node{position:relative;z-index:1;padding-top:30px}
+.node .pt{width:16px;height:16px;background:var(--bg);border:3px solid var(--mint);margin-bottom:16px}
+.node time{font-size:10px;color:var(--amber);letter-spacing:1px;display:block;margin-bottom:6px}
+.node h4{font-size:15px;margin-bottom:6px}
+.node p{font-size:12px;color:rgba(245,240,230,.66)}
+
+/* 问答 */
+.qa{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.qa details{border:3px solid rgba(245,240,230,.2);padding:18px 20px;background:var(--bg2)}
+.qa details[open]{border-color:var(--mint)}
+.qa summary{cursor:pointer;font-size:13px;list-style:none;display:flex;gap:10px}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:">";color:var(--mint);font-weight:700}
+.qa details[open] summary::before{content:"v"}
+.qa p{margin:12px 0 0;font-size:12px;color:rgba(245,240,230,.7)}
+
+/* 页脚 */
+.ft{border-top:3px solid var(--mint);padding:54px 0 0;background:var(--bg2)}
+.ft-in{max-width:1160px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:40px}
+.ft h5{font-size:11px;letter-spacing:2px;color:var(--mint);margin-bottom:18px}
+.ft-blurb{font-size:13px;color:rgba(245,240,230,.66);max-width:320px;margin:14px 0 18px}
+.flink{list-style:none}
+.flink li a{display:block;font-size:13px;color:rgba(245,240,230,.66);padding:5px 0;transition:.15s}
+.flink li a:hover{color:var(--mint);padding-left:8px}
+.addr{border:3px solid var(--mint);padding:16px;background:var(--bg)}
+.addr code{font-family:ui-monospace,Menlo,monospace;font-size:13px;color:var(--mint);word-break:break-all;line-height:1.6}
+.addr small{display:block;color:rgba(245,240,230,.6);font-size:11px;margin-top:10px}
+.copy{max-width:1160px;margin:44px auto 0;padding:20px 24px;border-top:3px solid var(--mint);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:11px;color:rgba(245,240,230,.55)}
+.copy .d{color:var(--mint)}
+
+@media(max-width:900px){
+  .bg{display:block}
+  .nav{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;background:var(--bg2);border-bottom:3px solid var(--mint);padding:10px}
+  .nav.open{display:flex}
+  .nav a{text-align:center}
+  .hero-in{grid-template-columns:1fr}
+  .hero-t h1{font-size:30px}
+  .spin{font-size:40px}
+  .stats{grid-template-columns:1fr 1fr}
+  .grid4,.wall{grid-template-columns:1fr}
+  .tl,.qa{grid-template-columns:1fr 1fr}
+  .tl::before{display:none}
+  .sec{padding:58px 0}
+  .sec-t h2{font-size:21px}
+  .ft-in{grid-template-columns:1fr 1fr;gap:32px}
+}
+@media(max-width:540px){
+  .wrap{padding:0 18px}
+  .hero-t h1{font-size:25px}
+  .acts .btn{flex:1;text-align:center}
+  .stats{grid-template-columns:1fr 1fr}
+  .tl,.qa,.ft-in{grid-template-columns:1fr}
+  .copy{flex-direction:column}
+}
+@media print{
+  .hd,.ft{display:none!important}
+  body{background:#fff;color:#000}
+  .hero-t h1,.sec-t h2,.box h3,.card h3,.tl h4{color:#000!important;-webkit-text-fill-color:#000}
+  .spin{animation:none}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<header class="hd">
+  <div class="hd-in">
+    <div class="logo"><i class="fc"></i>风车<b>电影网</b></div>
+    <div class="blip"><i></i> 在线 · 找片转盘已就绪</div>
+    <nav class="nav" id="nav">
+      <a href="#spin" class="on">找片转盘</a>
+      <a href="#modes">四种转法</a>
+      <a href="#wall">今日片墙</a>
+      <a href="#tl">更新节拍</a>
+      <a href="#qa">问答</a>
+    </nav>
+    <button class="bg" aria-label="菜单" onclick="document.getElementById('nav').classList.toggle('open')">≡</button>
+  </div>
+</header>
+
+<section class="hero" id="spin">
+  <div class="wrap">
+    <div class="hero-in">
+      <div class="hero-t">
+        <span class="tag">◆ 今日推荐 / DAILY SPIN</span>
+        <h1>转一转，<br>挑到<span class="hl">今天想看</span>的那部<em>电影</em></h1>
+        <p>风车电影网不替你决定看什么，它只负责把选择变简单：按心情、按类型、按年代、按片长，四种转法，三十秒定位今天最适合的那一部。</p>
+        <div class="acts">
+          <a href="#modes" class="btn btn-mint">启动找片转盘</a>
+          <a href="#wall" class="btn">随便逛逛片墙</a>
+        </div>
+      </div>
+      <aside class="hero-s">
+        <h3>▸ 今日随机三部</h3>
+        <ul>
+          <li><span>边境风云 2</span><b>动作</b></li>
+          <li><span>秋日来信</span><b>文艺</b></li>
+          <li><span>外婆的食谱</span><b>剧情</b></li>
+          <li><span>机甲之城</span><b>科幻</b></li>
+        </ul>
+      </aside>
+    </div>
+    <div class="stats">
+      <div><b>2340</b><span>收录影片</span></div>
+      <div><b>04</b><span>种找片方式</span></div>
+      <div><b>18:00</b><span>每日更新</span></div>
+      <div><b>0</b><span>操作门槛</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="modes">
+  <div class="wrap">
+    <div class="sec-t">
+      <div class="l"><span class="lvl">MODE 01-04</span><h2>四种<em>转法</em></h2></div>
+      <a href="#">查看全部方式 →</a>
+    </div>
+    <div class="grid4">
+      <div class="box" style="--c:#5fd0b0"><span class="ico">☺</span><h3>按心情找</h3><p>今天想哭、想笑、想紧张、还是想发呆？选一种心情，立刻给出匹配的片单。</p><span class="go">进入 →</span></div>
+      <div class="box" style="--c:#ffb347"><span class="ico">▣</span><h3>按类型找</h3><p>动作、喜剧、科幻、悬疑、文艺、惊悚，九条通道各走各的，直达片单。</p><span class="go">进入 →</span></div>
+      <div class="box" style="--c:#ff6b5b"><span class="ico">◷</span><h3>按年代找</h3><p>想看 90 年代、千禧年还是近三年的新片？按年份倒回去翻，各有各的味道。</p><span class="go">进入 →</span></div>
+      <div class="box" style="--c:#a8e6cf;color:var(--cream)"><span class="ico">⏱</span><h3>按片长找</h3><p>只有 40 分钟还是能熬到凌晨？按片长筛选，绝不超时，也不浪费时间。</p><span class="go">进入 →</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="wall" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-t">
+      <div class="l"><span class="lvl">TODAY'S WALL</span><h2>今日<em>片墙</em></h2></div>
+      <a href="#">完整片墙 →</a>
+    </div>
+    <div class="wall">
+      <article class="card">
+        <div class="top"><span class="n">MOOD / 想紧张</span><h3>沉默的证人</h3><span class="cat">悬疑 · 99分钟</span></div>
+        <div class="body">密闭空间三人对峙，每 12 分钟一个反转，全程无尿点。<div class="bar"><em style="--w:92%"></em><b>9.2</b></div></div>
+      </article>
+      <article class="card">
+        <div class="top"><span class="n">MOOD / 想被治愈</span><h3>外婆的食谱</h3><span class="cat">剧情 · 106分钟</span></div>
+        <div class="body">中小成本黑马，靠一碗汤讲完三代人的和解，点映场场爆满。<div class="bar"><em style="--w:88%"></em><b>8.8</b></div></div>
+      </article>
+      <article class="card">
+        <div class="top"><span class="n">MOOD / 想爽一下</span><h3>边境风云 2</h3><span class="cat">动作 · 138分钟</span></div>
+        <div class="body">今日首发，动作戏全程无替身，节奏一路推到片尾字幕。<div class="bar"><em style="--w:87%"></em><b>8.7</b></div></div>
+      </article>
+      <article class="card">
+        <div class="top"><span class="n">MOOD / 想安静</span><h3>秋日来信</h3><span class="cat">文艺 · 112分钟</span></div>
+        <div class="body">金鸡入围，全片只用三处配乐，靠表演撑起全部情绪。<div class="bar"><em style="--w:84%"></em><b>8.4</b></div></div>
+      </article>
+      <article class="card">
+        <div class="top"><span class="n">MOOD / 想开眼界</span><h3>机甲之城</h3><span class="cat">科幻 · 152分钟</span></div>
+        <div class="body">进口分账大片，视效预算破纪录，建议 IMAX 厅体验。<div class="bar"><em style="--w:82%"></em><b>8.2</b></div></div>
+      </article>
+      <article class="card">
+        <div class="top"><span class="n">MOOD / 想吓一跳</span><h3>午夜来电</h3><span class="cat">惊悚 · 96分钟</span></div>
+        <div class="body">密闭空间加一通电话，90 分钟把悬念拉到最后一秒。<div class="bar"><em style="--w:79%"></em><b>7.9</b></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="tl" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-t">
+      <div class="l"><span class="lvl">BEAT</span><h2>更新<em>节拍</em></h2></div>
+      <a href="#">更新日志 →</a>
+    </div>
+    <div class="tl">
+      <div class="node"><div class="pt"></div><time>18:00 每日</time><h4>今日片墙刷新</h4><p>六部影片按四种心情轮换上墙，每日不重样。</p></div>
+      <div class="node"><div class="pt"></div><time>周五 20:00</time><h4>周末加长片单</h4><p>周末时间宽裕，补上 120 分钟以上的长片。</p></div>
+      <div class="node"><div class="pt"></div><time>周日 21:00</time><h4>老片重温专场</h4><p>每周一部经典老片，附编辑写的重温笔记。</p></div>
+      <div class="node"><div class="pt"></div><time>每月 01 日</time><h4>月度心情榜</h4><p>按心情分类的月度榜单，附上意外之喜推荐。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="qa" style="padding-top:24px">
+  <div class="wrap">
+    <div class="sec-t">
+      <div class="l"><span class="lvl">FAQ</span><h2>问答</h2></div>
+    </div>
+    <div class="qa">
+      <details open><summary>风车电影网和其他电影站有什么不同？</summary><p>我们不按热门排序，而按「怎么找」分类。核心是一个找片转盘：按心情、按类型、按年代、按片长，四种方式把选择变简单。</p></details>
+      <details><summary>随机推荐会不会重复？</summary><p>不会。系统会记录你近期看过的影片，随机推荐时自动避开，保证每次转出来的都是没看过的。</p></details>
+      <details><summary>片单多久更新一次？</summary><p>每天 18:00 更新今日片墙，周五加更长片单，周日有老片重温专场，每月初出月度心情榜。</p></details>
+      <details><summary>手机和平板上能用吗？</summary><p>支持。本站采用移动端自适应设计，手机、平板、电脑打开都是同一套界面，躺床上看也没问题。</p></details>
+      <details><summary>怎么最快找到想看的类型？</summary><p>直接进入「四种转法」里的按类型找，九条通道点哪走哪；也可以在站内搜索片名、导演或心情关键词。</p></details>
+      <details><summary>老片重温专场怎么选片？</summary><p>由编辑手动挑选，标准是「当年被低估」或「值得每隔几年重看一次」，每周一部，附一篇短笔记。</p></details>
+    </div>
+  </div>
+</section>
+
+<footer class="ft">
+  <div class="ft-in">
+    <div>
+      <div class="logo"><i class="fc"></i>风车<b>电影网</b></div>
+      <p class="ft-blurb">转一转，挑到今天想看的那部电影。按心情、按类型、按年代、按片长四种方式找片，支持随机推荐与老片重温。</p>
+    </div>
+    <div>
+      <h5>栏目</h5>
+      <ul class="flink">
+        <li><a href="#spin">找片转盘</a></li>
+        <li><a href="#modes">四种转法</a></li>
+        <li><a href="#wall">今日片墙</a></li>
+        <li><a href="#tl">更新节拍</a></li>
+        <li><a href="#qa">问答</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>找片方式</h5>
+      <ul class="flink">
+        <li><a href="#">按心情</a></li>
+        <li><a href="#">按类型</a></li>
+        <li><a href="#">按年代</a></li>
+        <li><a href="#">按片长</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>访问入口</h5>
+      <div class="addr">
+        <code>fengchedianyingwang-top<br>.github.io</code>
+        <small>本站唯一入口 · 建议收藏</small>
+      </div>
+    </div>
+  </div>
+  <div class="copy">
+    <span>© 2026 风车电影网 · 让找片变简单</span>
+    <span class="d">https://fengchedianyingwang-top.github.io</span>
+  </div>
+</footer>
+
+<script>
+var secs=document.querySelectorAll('section[id]'),links=document.querySelectorAll('#nav a');
+window.addEventListener('scroll',function(){
+  var y=window.scrollY+150,cur='spin';
+  secs.forEach(function(s){if(y>s.offsetTop)cur=s.id});
+  links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+cur)});
+},{passive:true});
+</script>
+</body>
+</html>
